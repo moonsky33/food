@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原神美食</title>
+    <style>
+        /* 通用样式 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #7ba9df;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 页头样式 */
+        header {
+            background-color: #81c0ff;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 搜索框样式 */
+      .search-bar {
+            flex-grow: 1;
+            margin: 0 30px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+      .search-bar input {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 2px solid #ffffff;
+            font-size: 16px;
+            outline: none;
+            background: linear-gradient(145deg, #ffffff, #f1f1f1);
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1), -3px -3px 8px rgba(255, 99, 71, 0.3);
+        }
+
+      .search-bar input:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 12px rgba(255, 246, 246, 0.6);
+        }
+
+      .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ffffff;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+      .search-bar button:hover {
+            background-color: #ffffff;
+        }
+
+        /* 登录注册按钮样式 */
+      .auth-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+      .auth-buttons a {
+            text-decoration: none;
+            background-color: #2aa3ff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+      .auth-bottons a:hover {
+            background-color: #7ae0ff;
+        }
+
+        /* 导航栏样式 */
+        nav {
+            background-color: #77b9fa;
+            color: rgb(255, 255, 255);
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            color: #99c2e2;
+        }
+
+        /* 轮播图样式 */
+      .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+      .carousel-images {
+            width: 100%;
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+      .carousel-images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+      .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+      .carousel-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+      .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* 菜谱部分 */
+      .recipe-section {
+            padding: 30px 0;
+            background-color: #f4f4f9;
+        }
+
+      .recipe-section h2 {
+            text-align: center;
+            font-size: 28px;
+            color: #333;
+        }
+
+      .recipe-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 0 15px;
+        }
+
+      .recipe-item {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+            padding: 20px;
+        }
+
+      .recipe-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+      .recipe-item h3 {
+            margin: 15px 0;
+            color: #333;
+        }
+
+      .recipe-item p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+      .recipe-item button {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+      .recipe-item button:hover {
+            background-color: #e5533d;
+        }
+
+        /* 弹窗样式 */
+      .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+      .modal {
+            background-color: white;
+            width: 60%;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+      .modal h3 {
+            color: #333;
+        }
+
+      .modal p {
+            color: #777;
+            font-size: 16px;
+        }
+
+      .modal button {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+      .modal button:hover {
+            background-color: #e5533d;
+        }
+
+        /* 排行榜弹窗样式 */
+      .ranking-modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+            padding: 20px;
+        }
+
+      .ranking-modal-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+      .ranking-modal-item:last-child {
+            border-bottom: none;
+        }
+
+        /* 响应式设计示例，针对轮播图在小屏幕下调整样式 */
+        @media screen and (max-width: 768px) {
+          .carousel {
+                height: 200px;
+            }
+
+          .carousel-images img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 页头 -->
+    <header>
+        <h1><a href="index.html">原神食物</a></h1>
+
+        <!-- 搜索框 -->
+        <div class="search-bar">
+            <input type="text" placeholder="探索原食">
+            <button>🔍</button>
+        </div>
+
+        <!-- 登录注册按钮 -->
+        <div class="auth-buttons">
+            <a href="#">登录</a>
+            <a href="#">注册</a>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="#menu">菜谱</a></li>
+            <li><a href="#" onclick="openRankingModal()">查看排行榜</a></li>
+            <li><a href="#contact" onclick="openContactModal()">联系我们</a></li>
+        </ul>
+    </nav>
+
+    <!-- 轮播图 -->
+    <div class="carousel">
+        <div class="carousel-images" id="carousel-images">
+            <img src="/img/1.png" alt="前往米游社">
+            <img src="/img/2.jpeg" alt="前往原神">
+            <img src="/img/3.jpeg" alt="原神启动">
+            <img src="/img/4.jpeg" alt="再启动">
+        </div>
+        <div class="carousel-buttons">
+            <button class="carousel-button" onclick="moveCarousel(-1)">❮</button>
+            <button class="carousel-button" onclick="moveCarousel(1)">❯</button>
+        </div>
+    </div>
+
+    <!-- 菜谱展示 -->
+    <div class="recipe-section" id="menu">
+        <h2>推荐菜谱</h2>
+        <div class="recipe-container">
+            <!-- 菜谱1 -->
+            <div class="recipe-item">
+                <img src="/img/qgqhzt.png" alt="菜谱1">
+                <h3>奇怪的奇魂之汤</h3>
+                <p>颗粒果制成的饮品。浅浅喝下一口，所有的味蕾都开始颤抖... 某种意义上也算是「回味无穷」一因为过于浓郁的味道始终萦绕在舌尖，喝水也无法冲淡。</p>
+                <button onclick="openModal('奇怪的奇魂之汤', '颗粒果*1、烬心花*1、糖*1、果酱*1')">查看菜谱</button>
+            </div>
+            <!-- 菜谱2 -->
+            <div class="recipe-item">
+                <img src="/img/tthnj.png" alt="菜谱2">
+                <h3>甜甜花酿鸡</h3>
+                <p>邮箱经典赠送（雾）</p>
+                <button onclick="openModal('甜甜花酿鸡', '禽肉*2、甜甜花*2')">查看菜谱</button>
+            </div>
+            <div class="recipe-item">
+                <img src="/img/xtq.png" alt="菜谱2">
+                <h3>仙跳墙</h3>
+                <p>神中神！【须三山叩首，凤凰鸾鸟】获得！</p>
+                <button onclick="openModal('仙跳墙', '火腿*4、螃蟹*3、虾仁*3、松茸*3')">查看菜谱</button>
+            </div>
+            <!-- 更多菜谱... -->
+        </div>
+    </div>
+
+    <!-- 排行榜弹窗 -->
+    <div class="modal-overlay" id="ranking-modal-overlay">
+        <div class="modal">
+            <h3>菜谱排行榜</h3>
+            <div class="ranking-modal-content">
+                <div class="ranking-modal-item">
+                    <h4>1. 甜甜花酿鸡</h4>
+                    <p>简单又美味，邮箱赠送，深受大家喜爱（雾）。</p>
+                </div>
+                <div class="ranking-modal-item">
+                    <h4>2. 奇怪的奇魂之汤</h4>
+                    <p>随机排放</p>
+                </div>
+                <div class="ranking-modal-item">
+                    <h4>3.仙跳墙</h4>
+                    <p>神中神！</p>
+                </div>
+            </div>
+            <button onclick="closeRankingModal()">关闭</button>
+        </div>
+    </div>
+
+    <!-- 菜谱弹窗 -->
+    <div class="modal-overlay" id="recipe-modal-overlay">
+        <div class="modal">
+            <h3 id="recipe-modal-title">菜谱名称</h3>
+            <p id="recipe-modal-description">菜谱详情</p>
+            <button onclick="closeModal()">关闭</button>
+        </div>
+    </div>
+
+    <!-- 联系我们弹窗 -->
+    <div class="modal-overlay" id="contact-modal-overlay">
+        <div class="modal">
+            <h3 id="contact-modal-title">关于我</h3>
+            <p id="contact-modal-description">写原神只是这个放二次元图，我是二次元哈哈</p>
+            <button onclick="closeContactModal()">关闭</button>
+        </div>
+    </div>
+
+    <script>
+        // 轮播图控制
+        let currentIndex = 0;
+        const images = document.getElementById('carousel-images');
+        const totalImages = images.children.length;
+
+        function moveCarousel(direction) {
+            currentIndex = (currentIndex + direction + totalImages) % totalImages;
+            images.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // 打开菜谱弹窗
+        function openModal(title, description) {
+            document.getElementById('recipe-modal-title').textContent = title;
+            document.getElementById('recipe-modal-description').textContent = description;
+            document.getElementById('recipe-modal-overlay').style.display = 'flex';
+        }
+
+        // 关闭菜谱弹窗
+        function closeModal() {
+            document.getElementById('recipe-modal-overlay').style.display = 'none';
+        }
+
+        // 打开排行榜弹窗
+        function openRankingModal() {
+            document.getElementById('ranking-modal-overlay').style.display = 'flex';
+        }
+
+        // 关闭排行榜弹窗
+        function closeRankingModal() {
+            document.getElementById('ranking-modal-overlay').style.display = 'none';
+        }
+
+        // 打开联系我们弹窗
+        function openContactModal() {
+            document.getElementById('contact-modal-overlay').style.display = 'flex';
+        }
+
+        // 关闭联系我们弹窗
+        function closeContactModal() {
+            document.getElementById('contact-modal-overlay').style.display = 'none';
+        }
+    </script>
+
+</body>
+
+</html>
